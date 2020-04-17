@@ -6,7 +6,7 @@ const int buttonPin = A0;
 const float voltageEq = 5.0f / 1023.0f;   // Analog-signal-to-voltage-constant
 float buttonValue;
 #else
-// Tähän teidän vakiomuuttujat pinneille joilla luetaan napit + muut vakiot
+// Tähän teidän vakiomuuttujat pinneille joilla luetaan napit + muut vakiot tai muuttujat
 #endif
 
 // Function declarations.
