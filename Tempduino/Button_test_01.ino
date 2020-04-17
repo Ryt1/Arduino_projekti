@@ -14,6 +14,7 @@ float buttonValue;
 // Function declarations.
 int readButtons(void);
 
+// Types
 enum Buttons {
   BUTTON_NONE = 0,
   BUTTON_LEFT,
