@@ -4,12 +4,10 @@
 #ifdef ARD_LCD216
 const int buttonPin = A0;
 const float voltageEq = 5.0f / 1023.0f;   // Analog-signal-to-voltage-constant
+float buttonValue;
 #else
 // Tähän teidän vakiomuuttujat pinneille joilla luetaan napit + muut vakiot
 #endif
-
-// Global variables
-float buttonValue;
 
 // Function declarations.
 int readButtons(void);
