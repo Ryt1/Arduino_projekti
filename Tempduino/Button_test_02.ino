@@ -1,6 +1,7 @@
-#define DEBUG 0
+#define DEBUG_INFO 1
+#define ARD_LCD216 0
 
-#ifdef ARD_LCD216
+#if ARD_LCD216
 const int buttonPin = A0;
 const float voltageEq = 5.0f / 1023.0f;   // Analog-signal-to-voltage-constant
 float buttonValue;
@@ -26,11 +27,11 @@ enum Buttons {
 } button;
 
 void setup() {
-  #ifdef DEBUG
+  #if DEBUG_INFO
   Serial.begin(9600);
   #endif
 
-  #ifndef ARD_LCD216
+  #if !ARD_LCD216
   pinMode(buttonLeftPin, INPUT_PULLUP);
   pinMode(buttonRightPin, INPUT_PULLUP);
   pinMode(buttonUpPin, INPUT_PULLUP);
@@ -41,42 +42,41 @@ void setup() {
 
 void loop() {
   button = readButtons();
-  #ifdef DEBUG
+  #if DEBUG_INFO
   Serial.println(button);
   #endif
 }
 
 // This code is for ARD LCD216: LCD + buttons-combination circuit.
-#ifdef ARD_LCD216
+#if ARD_LCD216
 
 int readButtons(void)
 {
   buttonValue = analogRead(buttonPin);
   buttonValue *= voltageEq;
-  Serial.println("Terve!");
-
+  
   if (buttonValue < 5.0 && buttonValue >= 4.2) {
-    #ifdef DEBUG
+    #if DEBUG_INFO
     Serial.println("Vasen-nappi painettu. ");
     #endif
     return BUTTON_LEFT;
   } else if (buttonValue < 4.0 && buttonValue >= 3.3) {
-    #ifdef DEBUG
+    #if DEBUG_INFO
     Serial.println("Alas-nappi painettu. ");
     #endif
     return BUTTON_DOWN;
   } else if (buttonValue < 3.0 && buttonValue >= 2.4) {
-    #ifdef DEBUG
+    #if DEBUG_INFO
     Serial.println("Ylös-nappi painettu. ");
     #endif
     return BUTTON_UP;
   } else if (buttonValue < 2.0 && buttonValue >= 1.2) {
-    #ifdef DEBUG
+    #if DEBUG_INFO
     Serial.println("Oikea-nappi painettu. ");
     #endif
     return BUTTON_RIGHT;
   } else if (buttonValue < 1.0 && buttonValue >= 0.0) {
-    #ifdef DEBUG
+    #if DEBUG_INFO
     Serial.println("Select-nappi painettu. ");
     #endif
     return BUTTON_SELECT;
@@ -91,27 +91,27 @@ int readButtons(void)
 int readButtons(void)
 {
   if (digitalRead(buttonLeftPin) == LOW) {
-    #ifdef DEBUG
+    #if DEBUG_INFO
     Serial.println("Vasen-nappi painettu.");
     #endif
     return BUTTON_LEFT;
   } else if (digitalRead(buttonDownPin) == LOW) {
-    #ifdef DEBUG
+    #if DEBUG_INFO
     Serial.println("Alas-nappi painettu.");
     #endif
     return BUTTON_DOWN;
   } else if (digitalRead(buttonUpPin) == LOW) {
-    #ifdef DEBUG
+    #if DEBUG_INFO
     Serial.println("Ylös-nappi painettu.");
     #endif
     return BUTTON_UP;
   } else if (digitalRead(buttonRightPin) == LOW) {
-    #ifdef DEBUG
+    #if DEBUG_INFO
     Serial.println("Oikea-nappi painettu.");
     #endif
     return BUTTON_RIGHT;
   } else if (digitalRead(buttonSelectPin) == LOW) {
-    #ifdef DEBUG
+    #if DEBUG_INFO
     Serial.println("Select-nappi painettu.");
     #endif
     return BUTTON_SELECT;
