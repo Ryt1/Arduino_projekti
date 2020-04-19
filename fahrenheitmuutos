@@ -1,0 +1,12 @@
+//fahrenheitmuutos
+//jos ollaan kosteus tilassa, mitään ei tapahdu jos tämän aliohjelman nappia painetaan
+int fahrenheitmuutos()
+{
+  if(displaytila == 1) {
+    displaytila = 2
+    //vaihdetaan kosteudenesitykseen, muistiin aiempi tila celsius
+  } else {
+    displaytila = 1
+  }
+  return;
+}
