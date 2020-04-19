@@ -15,7 +15,6 @@ int kosteusmuunnos()
     //jos oltiin jo kosteustilassa, palaudutaan aikaisempaan aste asetukseen
   } else if(displaytila == 32) {
     displaytila = 2
-    break;
     //jos oltiin jo kosteustilassa, palaudutaan aikaisempaan aste asetukseen
   } else {
     return;
