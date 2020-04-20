@@ -8,7 +8,9 @@ int mittari = 8;
 SimpleDHT11 dht11(mittari);
 LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 
-
+  byte temp = 0;
+  byte hum = 0;
+  
 
 int almr = 0;
 
@@ -29,10 +31,7 @@ pinMode(A1, OUTPUT);
 
 void loop() {
   
-//määritetään muuttujat lämpötila-anturia varten
-  byte temp = 0;
-  byte hum = 0;
-  
+
 //luetaan arvot sensorilta ja käynnistetään hälytysfunktio
   dht11.read(&temp, &hum, NULL);
   alarm(almr);
@@ -61,7 +60,7 @@ void alarm(alrm)
 
 switch(alrm) {
   case 1:
-    while(temp < raja) {
+    if(temp < raja) {
       digitalWrite(A1, HIGH);
       delay(500);
       digitalWrite(A1, LOW);
@@ -69,14 +68,12 @@ switch(alrm) {
     }
     break;
   case 2:
-    while(temp > raja) {
+    if(temp > raja) {
       digitalWrite(A1, HIGH);
       delay(500);
       digitalWrite(A1, LOW);
       delay(500);
     }
-    break;
-  case 3:
     break;
   default:
     break;
