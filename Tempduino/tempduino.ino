@@ -57,7 +57,8 @@ void loop() {
   
 }
 
-void alarm(alrm)
+void alarm(alrm) 
+{
 
 switch(alrm) {
   case 1:
@@ -78,6 +79,7 @@ switch(alrm) {
     break;
   default:
     break;
+}
 }
 
 
