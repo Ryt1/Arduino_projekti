@@ -51,7 +51,7 @@ void loop() {
   } else if(digitalRead(10) == HIGH) {
     //suorita näytön-sammutus-aliohjelma
   } else {
-    delay(500)
+    delay(500);
   }
   
   
