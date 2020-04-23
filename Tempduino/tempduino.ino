@@ -79,3 +79,40 @@ switch(alrm) {
   default:
     break;
 }
+
+
+// tästä eteenpäin alkaa temporary functions
+//===============================================================================================
+
+
+//tiloille. tila 1 = print celsius. tila 2= print fahrenheit. 
+//tila 31 = print kosteus, muistissa aiempi celsius. tila 32 = print kosteus, muistissa aiempi fahrenheit
+//kosteusmuunnin v2
+
+void kosteusmuunnos()
+{
+  if(displaytila == 1) {
+    displaytila = 31
+    //vaihdetaan kosteudenesitykseen, muistiin aiempi tila celsius
+  } else if(displaytila == 2) {
+    displaytila = 32
+    //vaihdetaan kosteudenesitykseen, muistiin aiempi tila fahrenheit
+  } else if(displaytila == 31) {
+    displaytila = 1
+    //jos oltiin jo kosteustilassa, palaudutaan aikaisempaan aste asetukseen
+  } else if(displaytila == 32) {
+    displaytila = 2
+    //jos oltiin jo kosteustilassa, palaudutaan aikaisempaan aste asetukseen
+  } else {
+    return;
+  }
+}
+
+void fahrenheitmuutos()
+{
+  if(displaytila == 1) {
+    displaytila = 2
+  } else {
+    displaytila = 1
+  }
+}
