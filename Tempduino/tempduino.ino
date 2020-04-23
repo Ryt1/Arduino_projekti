@@ -31,7 +31,7 @@ pinMode(A1, OUTPUT);
 
 
 void alarm() {
-int alrm = 1;
+int alrm;
 switch(alrm) {
   case 1:
     if(temp < raja) {
