@@ -1,19 +1,18 @@
 #include <LiquidCrystal.h>
 #include <SimpleDHT.h>
 
-#define void alarm(almr)
 
 // määritetään pinnit ja muuttujat
 int mittari = 8;
 int displaytila = 1;
+int raja = 35;
+int almr = 0;
 SimpleDHT11 dht11(mittari);
 LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 
   byte temp = 0;
   byte hum = 0;
   
-
-int almr = 0;
 
 void setup() {
 
@@ -30,36 +29,9 @@ pinMode(A1, OUTPUT);
   lcd.print("Temperature (C):");
 }
 
-void loop() {
-  
 
-//luetaan arvot sensorilta ja käynnistetään hälytysfunktio
-  dht11.read(&temp, &hum, NULL);
-  alarm(almr);
-
-//asetetaan kursori oikeaan paikkaan ja tulostetaan lämpötila
-  lcd.setCursor(0, 2);
-  lcd.print(temp);
-
-//luetaan napit
-  if(digitalRead(6) == HIGH) {
-    //suorita kosteusaliohjelma
-  } else if(digitalRead(7) == HIGH) {
-    //suorita fahrenheitaliohjelma
-  } else if(digitalRead(9) == HIGH) {
-    //suorita valikkoaliohjelma
-  } else if(digitalRead(10) == HIGH) {
-    //suorita näytön-sammutus-aliohjelma
-  } else {
-    delay(500);
-  }
-  
-  
-}
-
-void alarm(alrm) 
-{
-
+void alarm() {
+int alrm = 1;
 switch(alrm) {
   case 1:
     if(temp < raja) {
@@ -82,30 +54,26 @@ switch(alrm) {
 }
 }
 
-
-// tästä eteenpäin alkaa temporary functions
-//===============================================================================================
-
-
-//tiloille. tila 1 = print celsius. tila 2= print fahrenheit. 
-//tila 31 = print kosteus, muistissa aiempi celsius. tila 32 = print kosteus, muistissa aiempi fahrenheit
-//kosteusmuunnin v2
-
 void kosteusmuunnos()
 {
-  if(displaytila == 1) {
-    displaytila = 31
-    //vaihdetaan kosteudenesitykseen, muistiin aiempi tila celsius
-  } else if(displaytila == 2) {
-    displaytila = 32
-    //vaihdetaan kosteudenesitykseen, muistiin aiempi tila fahrenheit
-  } else if(displaytila == 31) {
-    displaytila = 1
-    //jos oltiin jo kosteustilassa, palaudutaan aikaisempaan aste asetukseen
-  } else if(displaytila == 32) {
-    displaytila = 2
-    //jos oltiin jo kosteustilassa, palaudutaan aikaisempaan aste asetukseen
-  } else {
+ if (displaytila == 1)
+  {
+    displaytila = 31;
+  } 
+  else if (displaytila == 2)
+  {
+    displaytila = 32;
+  } 
+  else if (displaytila == 31)
+  {
+    displaytila = 1;
+  } 
+  else if (displaytila == 32)
+  {
+    displaytila = 2;
+  } 
+  else 
+  {
     return;
   }
 }
@@ -113,8 +81,70 @@ void kosteusmuunnos()
 void fahrenheitmuutos()
 {
   if(displaytila == 1) {
-    displaytila = 2
+    displaytila = 2;
   } else {
-    displaytila = 1
+    displaytila = 1;
   }
+}
+  
+void tulostusfunktio()
+{
+int fahrenheit = temp*1.8+32;
+  switch (displaytila) {
+    case 1:
+      lcd.clear();
+      lcd.setCursor(0, 0);
+      lcd.print("Temperature (C):");
+      lcd.setCursor(0, 1);
+      lcd.print(temp);
+      break;
+    case 2:
+      lcd.clear();
+      lcd.setCursor(0, 0);
+      lcd.print("Temperature (F):");
+      lcd.setCursor(0, 1);
+      lcd.print(fahrenheit);
+      break;
+    case 31:
+      lcd.clear();
+      lcd.setCursor(0, 0);
+      lcd.print("Humidity (%):");
+      lcd.setCursor(0, 1);
+      lcd.print(hum);
+      break;
+    case 32:
+      lcd.clear();
+      lcd.setCursor(0, 0);
+      lcd.print("Humidity (%):");
+      lcd.setCursor(0, 1);
+      lcd.print(hum);
+      break;
+    default:
+      break;
+  }
+}
+
+void loop() {
+//luetaan arvot sensorilta ja käynnistetään hälytysfunktio
+  dht11.read(&temp, &hum, NULL);
+  alarm();
+
+//asetetaan kursori oikeaan paikkaan ja tulostetaan lämpötila
+  lcd.setCursor(0, 2);
+  lcd.print(temp);
+
+//luetaan napit
+  if(digitalRead(6) == HIGH) {
+    kosteusmuunnos();
+  } else if(digitalRead(7) == HIGH) {
+    fahrenheitmuutos();
+  } else if(digitalRead(9) == HIGH) {
+    //suorita valikkoaliohjelma
+    delay(500);
+  } else if(digitalRead(10) == HIGH) {
+    delay(500);
+  } else {
+    tulostusfunktio();
+    delay(500);
+  } 
 }
