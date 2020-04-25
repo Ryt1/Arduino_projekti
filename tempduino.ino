@@ -1,6 +1,6 @@
 #include <LiquidCrystal.h>
 #include <SimpleDHT.h>
-
+//kirjastot
 
 // määritetään pinnit ja muuttujat
 
@@ -32,7 +32,7 @@ digitalWrite(13, LOW);
   lcd.print("Temperature (C):");
 }
 
-
+//alarm funktio, alrm muttujan tilan mukaan pystytään vaihtamaan suurempikuin, pienempikuin
 void alarm() {
 switch(alrm) {
   case 1:
@@ -55,27 +55,22 @@ switch(alrm) {
     break;
 }
 }
-
+//seuraavat kaksi funktiota vaihtavat displaytila-muuttujaa nappien painalluksien perusteella
+//kun mainloopissa niitä kutsutaan
 void kosteusmuunnos()
 {
- if (displaytila == 1)
-  {
+ if (displaytila == 1){
     displaytila = 31;
   } 
-  else if (displaytila == 2)
-  {
+  else if (displaytila == 2){
     displaytila = 32;
   } 
-  else if (displaytila == 31)
-  {
+  else if (displaytila == 31){
     displaytila = 1;
   } 
-  else if (displaytila == 32)
-  {
+  else if (displaytila == 32){
     displaytila = 2;
-  } 
-  else 
-  {
+  } else {
     return;
   }
 }
@@ -88,7 +83,8 @@ void fahrenheitmuutos()
     displaytila = 1;
   }
 }
-  
+//funktio tulostaa displaytila muuttujan mukaisen arvon ja nimen 
+//lcd taululle
 void tulostusfunktio()
 {
 int fahrenheit = temp*1.8+32;
@@ -125,7 +121,7 @@ int fahrenheit = temp*1.8+32;
       break;
   }
 }
-
+//hälytyksen säätö funktio
 void menu()
 {   
     lcd.clear();
@@ -139,28 +135,28 @@ void menu()
     }
     lcd.print(raja);
     delay(300);
-
+//jos menuopen muuttuja on kaksi, funktio voi edetä while lauseeseen!
 while(menuopen==2){
-
+//raja muuttujaan pystytään +/- käyttäjän tarpeen mukaan
     if(digitalRead(7) == HIGH){
         raja = raja+1;
         lcd.setCursor(1, 1);
         lcd.print(raja);
         delay(300);
-
     } 
     else if(digitalRead(6) == HIGH){
         raja = raja-1;
         lcd.setCursor(1, 1);
         lcd.print(raja);
         delay(300);
-
+//alrm muttuujaa vaihdetaan, vaihtaen suurempikuin/pienempikuin
     }
     else if(digitalRead(10) == HIGH){
         alrm = (alrm == 1) ? 2 : 1;
         delay(300);
         menu();
     }
+//jos nappia 9 painetaan, menuopen muuttuja palautetaan yhteen ja funktiosta poistutaan
     else if(digitalRead(9) == HIGH){
         menuopen=1;
         return;
@@ -172,7 +168,7 @@ while(menuopen==2){
 
 }
 
-
+//tuotteen mainloop
 void loop() {
 //luetaan arvot sensorilta ja käynnistetään hälytysfunktio
 
