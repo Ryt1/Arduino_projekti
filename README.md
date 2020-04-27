@@ -1,3 +1,4 @@
+
   _______                       _       _             
  |__   __|                     | |     (_)            
     | | ___ _ __ ___  _ __   __| |_   _ _ _ __   ___  
@@ -6,6 +7,7 @@
     |_|\___|_| |_| |_| .__/ \__,_|\__,_|_|_| |_|\___/ 
                      | |                              
                      |_|                              
+
 
 Tempduino on Arduinon päälle rakennettu digitaalinen lämpömittari, jossa on sisäänrakennettu käyttäjäystävällinen hälytystoiminto.
 ****************************************************************************************************************************************
@@ -20,6 +22,7 @@ Kuinka rakennan oman Tempduinon?
 Tempduinon loivat Aleksi Alavahtola, Niilo Rytkönen ja Tomi Isojärvi Tietotekniikan Sovellusprojekti -kurssia varten osana ensimmäisen vuoden insinööriopintoja.
 
 
+
   _______                       _       _             
  |__   __|                     | |     (_)            
     | | ___ _ __ ___  _ __   __| |_   _ _ _ __   ___  
@@ -28,6 +31,7 @@ Tempduinon loivat Aleksi Alavahtola, Niilo Rytkönen ja Tomi Isojärvi Tietotekn
     |_|\___|_| |_| |_| .__/ \__,_|\__,_|_|_| |_|\___/ 
                      | |                              
                      |_|                              
+
 
 Tempduino is a digital thermometer built on an Arduino, that has an user-friendly alarm feature
 ****************************************************************************************************************************************
